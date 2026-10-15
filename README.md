@@ -1,7 +1,6 @@
 # 🏠 Residential Building Energy Load Prediction Using Machine Learning
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](residential-energy-prediction-tpe-xgboost.ipynb)
 
 Predicting **Heating Load (Y1)** and **Cooling Load (Y2)** of residential buildings using TPE-optimized XGBoost and Random Forest regression, based on the [UCI Energy Efficiency dataset](https://archive.ics.uci.edu/dataset/242/energy+efficiency).
@@ -189,8 +188,3 @@ You can also open the notebook directly in Google Colab:
 4. **Akiba, T., et al.** (2019). Optuna: A Next-generation Hyperparameter Optimization Framework. *Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining.*
 
 ---
-
-## 📄 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
