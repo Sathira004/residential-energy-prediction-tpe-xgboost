@@ -16,7 +16,6 @@ Predicting **Heating Load (Y1)** and **Cooling Load (Y2)** of residential buildi
 - [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
 - [References](#-references)
-- [License](#-license)
 
 ---
 
