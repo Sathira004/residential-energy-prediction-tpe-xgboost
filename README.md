@@ -84,36 +84,41 @@ A sequential (chained) approach:
 Both stages use **Optuna TPE** for hyperparameter optimization with 10-fold cross-validation.
 
 ### 5. Stress Testing
-- **Noise Robustness Test:** Gaussian noise injection at increasing levels (σ = 0% to 50%)
-- **Dimensionality Stress Test:** Adding irrelevant random features (0 to 20)
+- **Noise Robustness Test:** Evaluates resilience against Gaussian feature noise ($\sigma = 0\%$ to $20\%$), highlighting the error cascade vulnerability in chained architectures.
+- **Dimensionality Stress Test:** Assesses model degradation under irrelevant noise features (0 to 20 added features).
 
 ---
 
 ## 📈 Key Results
 
-### Model Performance Comparison
+### Model Performance Comparison (Test Set)
 
 | Model | Target | MAE (kW) | RMSE (kW) | R² |
 |-------|--------|----------|-----------|-----|
-| Random Forest | Y1 (Heating) | 0.338 | 0.483 | 0.998 |
-| Random Forest | Y2 (Cooling) | 1.232 | 2.037 | 0.954 |
-| **Chained XGBoost** | **Y1 (Heating)** | **0.266** | **0.365** | **0.999** |
-| **Chained XGBoost** | **Y2 (Cooling)** | **0.773** | **1.223** | **0.983** |
+| Random Forest (Baseline) | Y1 (Heating Load) | 0.331 | 0.471 | 0.998 |
+| Random Forest (Baseline) | Y2 (Cooling Load) | 1.258 | 2.075 | 0.952 |
+| **Chained XGBoost** | **Y1 (Heating Load)** | **0.266** | **0.365** | **0.999** |
+| **Chained XGBoost** | **Y2 (Cooling Load)** | **0.773** | **1.223** | **0.983** |
 
 ### Improvement over Baseline
 
-- **Heating Load (Y1):** 21.3% MAE reduction, 24.4% RMSE reduction
-- **Cooling Load (Y2):** 37.3% MAE reduction, 39.9% RMSE reduction
+- **Heating Load (Y1):** **19.8%** MAE reduction, **22.4%** RMSE reduction
+- **Cooling Load (Y2):** **38.5%** MAE reduction, **41.1%** RMSE reduction
+
+### Stress Testing Findings
+- **Noise Robustness:** Random Forest degrades gracefully under increasing noise, while Chained XGBoost suffers sharp error spikes even at minor noise levels (2%) due to error propagation from $Y_1 \rightarrow Y_2$.
+- **Dimensionality:** Both models exhibit moderate degradation with irrelevant features, with Chained XGBoost displaying slightly higher sensitivity to dimensionality inflation.
+- **Key Takeaway:** Chained XGBoost achieves superior accuracy on clean, well-curated data, while Random Forest provides superior stability under noisy input conditions.
 
 ### Comparison with Research Paper
 
 | Model | Y1 MAE (kW) | Y2 MAE (kW) |
 |-------|-------------|-------------|
-| Random Forest (Implemented) | 0.338 | 1.232 |
-| Chained XGBoost (Implemented) | 0.266 | 0.773 |
+| Random Forest (Implemented Baseline) | 0.331 | 1.258 |
+| Chained XGBoost (Implemented Model) | 0.266 | 0.773 |
 | **TPE-XGBoost (Research Paper)** | **0.169** | **0.275** |
 
-> **Note:** The research paper used 10-fold CV across five independent runs on the entire dataset, while the implemented models were validated on a held-out test split (15%). The comparison serves as an indicative benchmark.
+> **Note:** The research paper used 10-fold CV across five independent runs on the entire dataset, while the implemented models were validated on an independent held-out test split (15%). The comparison serves as an indicative benchmark.
 
 ---
 
